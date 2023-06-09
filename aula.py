@@ -4,6 +4,7 @@
 from dash import Dash, html, dcc, Input, Output
 import plotly.express as px
 import pandas as pd
+import plotly.io as pio
 
 app = Dash(__name__)
 
@@ -26,17 +27,20 @@ app.layout = html.Div(children=[
         Obs: Esee gráfico mostra a quantidade de produtos vendidos, não o faturamento
     '''),
 
-    html.Div(id="texto"),
-    dcc.Dropdown(options=opcoes, value='Todas as lojas', id='lista_lojas'),
+    html.Div(id="texto", className="dark-theme"),
+    dcc.Dropdown(options=opcoes, value='Todas as lojas', id='lista_lojas', className="dark-theme"),
 
     # value = valor inicial, id = nome do dropdown(botão)
 
     dcc.Graph(
         id='Gráfico quantidade de vendas',  # id = nome do gráfico
         figure=fig
-    )
+    )], className="dark-theme")
 
-])
+app.css.append_css({
+    'external_url': 'assets/style.css'
+})
+
 @app.callback(
     Output('Gráfico quantidade de vendas', 'figure'),
     Input('lista_lojas', 'value')
@@ -44,11 +48,14 @@ app.layout = html.Div(children=[
 
 def update_output(value):
     if value == 'Todas as lojas':
-        fig = px.bar(df, x="Produto", y="Quantidade", color="ID Loja", barmode="group")
+        tabela_filtrada = df
     else:
-        tabela_filtrada = df.loc[df['ID Loja'] ==value, :] # : pega todas as colunas
-        fig = px.bar(tabela_filtrada, x="Produto", y="Quantidade", color="ID Loja", barmode="group")
+        tabela_filtrada = df.loc[df['ID Loja'] == value, :]
+
+    fig = px.bar(tabela_filtrada, x="Produto", y="Quantidade", color="ID Loja", barmode="group")
+    fig.update_layout(template='plotly_dark')
     return fig
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)

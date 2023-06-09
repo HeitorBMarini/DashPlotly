@@ -1,0 +1,50 @@
+.dark-theme {
+    background-color: #222;
+    color: #fff;
+}
+
+.dark-theme .plotly-graph {
+    background-color: black;
+}
+
+.dark-theme .plotly-graph .plotly {
+    color: black;
+}
+
+.dark-theme .plotly-graph .modebar {
+    background-color: #222;
+    color: white;
+}
+
+.dark-theme .plotly-graph .modebar .modebar-btn {
+    color: black;
+}
+
+
+.dark-theme .Select-control {
+  background-color: black;
+  color: white;
+}
+
+.dark-theme .Select-menu-outer {
+  background-color: black;
+}
+
+.dark-theme .Select-option {
+  color: white;
+}
+
+.dark-theme .Select-option:hover {
+  background-color: red;
+  color: white;
+}
+
+.dark-theme .Select-option.is-selected {
+  background-color: darkgray;
+  color: white;
+}
+
+
+
+
+
